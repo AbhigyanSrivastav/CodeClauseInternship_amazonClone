@@ -87,7 +87,7 @@ font-weight:700;
 color:#f08804;
 `
 
-function Header() {
+function Header({cartItems}) {
   return( 
   <Container>
 
@@ -129,7 +129,7 @@ function Header() {
         <HeaderOptionCart>
             <ShoppingBasketIcon/>
             <CartCount>
-                    6
+                    {cartItems.length}
             </CartCount>
         </HeaderOptionCart>
         </Link>

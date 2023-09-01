@@ -1,10 +1,13 @@
 import styled from "styled-components";
+import {db} from "../firebaseApp"
 const Container=styled.div`
-flex:1;
+flex:1 0 21%;
 max-height:30rem;
 margin:2rem;
 padding:1rem;
 display:flex;
+justify-content: space-between;
+align-content: stretch;
 position:relative;
 background-color: #fff;
 flex-wrap:wrap;
@@ -38,8 +41,29 @@ border:2px solid #a88734;
 border-radius:2px;
 `
 
-function ProductItem(props){
-    const{title,price,rating,image}=props
+function ProductItem({title,price,rating,image,id}){
+    
+    const addToCart=()=>{
+ 
+       const cartItem= db.collection('cartitems').doc(id)
+       cartItem.get().then((doc)=>{
+            if (doc.exists) {
+                cartItem.update({
+                    quantity:doc.data().quantity+1
+                })
+            }else{
+                db.collection('cartitems').doc(id).set({
+                    name:title,
+                    image:image,
+                    price:price,
+                    quantity:1
+                })
+            }
+       })
+      
+    }
+
+
     return(
         <Container>
             <Title>
@@ -61,7 +85,7 @@ function ProductItem(props){
             <Image src={image}/>
 
            <ActionSection>
-           <AddToCartButton>
+           <AddToCartButton onClick={addToCart}>
                 Add to cart
             </AddToCartButton>
            </ActionSection>

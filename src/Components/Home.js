@@ -23,6 +23,7 @@ const Content=styled.div`
     padding: 0 1rem 0 1rem;
     margin-top: -12rem;
     display:flex;
+    flex-wrap:wrap;
 `
 
 function Home(){
@@ -49,7 +50,7 @@ function Home(){
         
     },[])
     
-
+   
 
     return(
         <Container>
@@ -61,12 +62,15 @@ function Home(){
                 {
                     products.map((data)=>(
                         <ProductItem
-                            title={data.product.name}
-                            price={data.product.price}
-                            rating={data.product.rating}
-                            image={data.product.image}
-                            key={data.id}
+                        title={data.product.name}
+                        price={data.product.price}
+                        rating={data.product.rating}
+                        image={data.product.image}
+                        id={data.id}
+                        key={data.id}
                         />
+
+                        
                     ))
                 }
             </Content>
